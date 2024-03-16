@@ -101,6 +101,13 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(new_product.available, product.available)
         self.assertEqual(new_product.category, product.category)
 
-    #
-    # ADD YOUR TEST CASES HERE
-    #
+    def test_read_a_product(self):
+        """It should read a product"""
+
+        product = ProductFactory()
+        logging.info(f"Product {product.name} was instantiated")
+        product.id = None
+        self.assertTrue(product.id, None)
+        product.create()
+        self.assertFalse(product.id, None)
+        

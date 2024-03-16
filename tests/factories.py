@@ -41,7 +41,5 @@ class ProductFactory(factory.Factory):
     price = FuzzyDecimal(0.5, 2000.0, 2)
     available = FuzzyChoice(choices=[True, False])
     category = FuzzyChoice(
-        choices=[
-            category.name for category in list(Category)
-        ]
+        choices=list(Category)
     )
