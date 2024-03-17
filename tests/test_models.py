@@ -107,7 +107,42 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         logging.info(f"Product {product.name} was instantiated")
         product.id = None
-        self.assertTrue(product.id, None)
+        self.assertTrue(product.id == None)
         product.create()
-        self.assertFalse(product.id, None)
+        self.assertFalse(product.id == None)
+        product2 = Product.find(product.id)
+        self.assertEqual(product2.id, product.id)
+        self.assertEqual(product2.name, product.name)
+        self.assertEqual(product2.description, product.description)
+        self.assertEqual(product2.price, product.price)
+
+    def test_update_a_product(self):
+        """It should update a product"""
+        #create a product
+        product = ProductFactory()
+        product = None
+        product.create()
+        self.assertIsNotNone(product.id)
+
+        #find product
+        product2 = Product.find(product.id)
+        self.assertEqual(product.id, product2.id)
+
+        #update product
+        product2.name = product2.name + "updated"
+        product2.description = product2.description + "updated"
+        product2.price = product2.price + 3.5
+        product2.update()
+
+        #check if product was updated
+        product_updated = Product.find(product2.id)
+        self.assertIsNotNone(product_updated.id)
+        self.assertEqual(product2.name, product_updated.name)
+        self.assertEqual(product2.description, product_updated.description)
+        self.assertEqual(product2.price, product_updated.price)
+                
+
+
+
+
         
